@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        .tabs{ list-style:none; padding:0 }
+        .tabs a{
+          text-decoration:none;
+                color:#000;
+                padding:6px 12px;
+                display:inline-block;
+        }
+        .tabs>li{
+          float:left;
+          border-bottom:1px solid #000;
+        }
+        .tabs>.active{
+          border:1px solid #000;
+          border-bottom:0;
+        }
+
+        .container {
+			border: 1px solid #aaa;  overflow:hidden;
+		}
+		.block {
+			float: left; margin: 10px;
+			border: 1px solid #aaa;
+			background: #faa;
+			width: 150px; height: 150px;
+		}
+		.block:hover{ box-shadow:0 5px 6px #000; }
+		.close {
+			float:right; padding:5px;
+			font-weight:bold; opacity:.2; cursor: pointer;
+		}
+		.close:hover { opacity: .5; }
+      </style>
+</head>
+<body>
+    <h1>使用属性选择器实现标签页头的切换</h1>
+    <ul class="tabs">
+        <li class="active">
+            <a data-toggle="tab" href="#">十元套餐</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#">二十元套餐</a>
+        </li>
+        <li>
+            <a data-toggle="tab" href="#">三十元套餐</a>
+        </li>
+    </ul>
+
+    <h1>添加/删除节点</h1>
+	<button id="add-block">添加区块</button>
+	
+	<div class="container">
+		<!-- <div class="block">
+			<span class="close">×</span>
+		</div> -->
+    </div>
+    
+    <h1>替换节点</h1>
+
+    <div id="chosen">
+      <img src="img/p0.png">
+    </div>
+    <hr />
+    <div id="list">
+      <img src="img/p3.png">
+      <img src="img/p4.png">
+      <img src="img/p5.png">
+    </div>
+
+    <h1>事件绑定</h1>
+	<button id="btn1">发射子弹</button>
+    <button id="btn2">获得奖励</button>
+	<button id="btn3">失去奖励</button>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script>
+        $("ul.tabs>li>a").mouseover(function(){
+            $(this).parent().addClass("active").siblings().removeClass("active");
+        })
+
+
+        $("#add-block").click(function(){
+            $(`<div class="block">
+			<span class="close">×</span>
+        </div> `).css("background-color",`rgb(${parseInt(Math.random()*255)},
+                    ${parseInt(Math.random()*255)},
+                    ${parseInt(Math.random()*255)})`).prependTo(".container").children("span").click(function(){
+                        $(this).parent().remove();
+                    })
+            
+        })
+
+        $("#list>img").click(function(){
+            $(this).clone().replaceAll("#chosen>img");
+        })
+
+        $("#btn1").click(function(){
+            console.log("发送普通子弹....");
+        })
+        function shoot2(){
+            alert("发送特殊子弹=>=>=>");
+        }
+        $("#btn2").click(function(){
+            $("#btn1").click(shoot2);
+        })
+        $("#btn3").click(function(){
+            $("#btn1").off("click",shoot2);
+        })
+    </script>
+</body>
+</html>

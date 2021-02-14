@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .btn {
+          padding: 5px 10px;
+          border-radius: 3px;
+          border: 1px solid #aaa;
+          outline: none;
+        }
+        /*准备了两个class*/
+        /*按钮抬起时的样式*/
+        .up {
+          background: #fff;
+          color: #333;
+        }
+        /*按钮按下时的样式*/
+        .down {
+          background: #ddd;
+          color: #fff;
+        }
+      </style>
+</head>
+<body>
+    <h1>操作元素的属性</h1>
+    <img src="img/1.jpg" alt="1">
+    <br>
+    <hr/>
+    <br>
+    <img src="img/1.jpg" data-target="img/1-l.jpg" class="my-small">
+    <img src="img/2.jpg" data-target="img/2-l.jpg" class="my-small">
+    <img src="img/3.jpg" data-target="img/3-l.jpg" class="my-small">
+    <img src="img/4.jpg" data-target="img/4-l.jpg" class="my-small">
+    <br>
+    <hr/>
+    <br>
+    <img src="img/1-l.jpg" class="my-big">
+    <br>
+    <hr/>
+    <br>
+    <button class="btn up">双态按钮</button>
+    <br>
+    <hr/>
+    <br>
+    <ul class="top">
+      <li class="parent1">parent1
+        <ul>
+          <li class="child">child1</li>
+          <li class="child">child2</li>
+          <li class="child">child3</li>
+        </ul>
+      </li>
+      <li class="parent2">parent2
+        <ul>
+          <li class="child">child1</li>
+          <li class="child">child2</li>
+          <li class="child">child3</li>
+        </ul>
+      </li>
+    </ul>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script>
+    //    $("img").click(function(){
+    //        $this=$(this);
+    //        var i=parseInt($this.attr("alt"));
+    //        i<4?(i++):(i=1);
+    //        $this.attr({
+    //            alt:i,
+    //            src:`img/${i}.jpg`
+    //        })
+    //    })
+
+       $(".my-small").click(function(){
+           var $big=$(".my-big");
+           var src=$(this).attr("data-target");
+           $big.attr({src});
+       })
+
+
+       $("button").click(function(){
+            // $(this).hasClass("down")?$(this).removeClass("down"):$(this).addClass("down");
+            $(this).toggleClass("down");
+
+       })
+       //修改class为top的ul的所有直接子元素
+       $("ul.top").children().css("border","1px solid red");
+       //修改class为top的ul的所有后代li
+       $("ul.top").find("li").css("box-shadow","0 0 5px green");
+       //为class为child的li绑定单击事件
+       $("ul.top").find("li.child").click(function(){
+         $(this)//.next()//.nextAll()//.prev()//.prevAll()
+                .siblings()
+                .css("background-color","pink");
+       })
+    </script>
+</body>
+</html>
